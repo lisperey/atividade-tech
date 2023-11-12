@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TreeMap;
 use App\Livewire\Conversor;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/treemap', [TreeMap::class, 'index'])->name('values.index');
 
