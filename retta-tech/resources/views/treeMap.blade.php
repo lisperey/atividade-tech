@@ -13,29 +13,42 @@
     
         <div class="d-flex flex-column align-items-center">
           <div class="row">
-              <h2>Gráfico TreeMap Dólar Últimos 30 dias</h2>
+              <h2>Gráfico TreeMap As 5 Redes Sociais Mais Usadas No Brasil Em 2023</h2>
           </div>
-          <div class="container">
+          <div>
             
-            <div class="row mx-md-n5 d-flex align-items-center">
+            <div class="row bg-dark" style="width: 508px; height: 500px">
                 @php
-                 $tamanho = 250;
-                 $tamanho2 = 280;
-
+                $valorw = 500*2;
+                $valorh = 500*2;
+                $y = 0;
+                $x = 0;
+                $total = 0;
+                foreach ($values as $key => $value) {
+                    $total += $value['value'];
+                }
+               
+                
                 @endphp
-            @foreach($values as $value)
+            @foreach($values as $key => $value)
             @php
-            $tamanho -= $value['ask'];
-            $tamanho2 -= $value['ask'];
-            $font = $tamanho<80? 12:18;
-            $cor = 'rgb(163, 35, 26)';
-            if($value['ask'] < 0){
-                $cor = 'rgb(115, 24, 17)';
+            $tamanho = $value['value']/$total;
+            $tamanhow = $tamanho * $valorw;
+            $tamanhoh = $tamanho * $valorh;
+            if ($x + $tamanho * $valorw >= $valorw) {
+                $x = 0;
+                $y += $tamanho * $valorh;
+            } else {
+                $x += $tamanho * $valorw;
             }
+
+            $font = $tamanhow<80? 12:18;
+            $cor = 'rgb(163, 35, 26)';
+
             @endphp
-                <div class="d-flex flex-column justify-content-around align-items-center my-1 mx-1 border" style="background-color: {{$cor}}; width:{{$tamanho}}px; height:{{$tamanho2}}px; font-size:{{$font}}px">
-                    <span>R${{number_format($value['ask'], 3, ',', ' ')}}</span>
-                    <span>{{date('d/m/Y', $value['timestamp'])}}</span>
+                <div title="{{$value['value']}}M" class="d-flex flex-column justify-content-around align-items-center border" style="background-color: {{$cor}}; width:{{$tamanhow}}px; height:{{$tamanhoh}}px; font-size:{{$font}}px">
+        
+                    <span>{{$value['name']}}</span>
             
                 </div>
                 @endforeach
