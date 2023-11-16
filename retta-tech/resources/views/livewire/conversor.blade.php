@@ -1,14 +1,14 @@
 
-<?php 
-use App\Classes\ConversorClasse;
-$conversor = new ConversorClasse();
-$arabico = $conversor->converterRomanoParaArabico($valorRomano);
-$romano =$conversor->converterArabicoParaRomano($valorArabico)
-?>
 <div class="d-flex flex-column align-items-center">
     <div class="row mb-5">
         <h2>Conversor de Número Romano</h2>
     </div>
+    @php
+        use App\Classes\ConversorClasse;
+        $conversor = new ConversorClasse();
+        $arabico = $conversor->converterRomanoParaArabico($valorRomano);
+        $romano =$conversor->converterArabicoParaRomano($valorArabico);
+    @endphp
 
     <div class="d-flex flex-column align-items-center container col-3 border bg-light">
         <div class="col my-2 mx-2">
@@ -23,7 +23,7 @@ $romano =$conversor->converterArabicoParaRomano($valorArabico)
             <label class="mb-2">Digite um número Arabico:</label>
             <input class="form-control" type="number" wire:model.live="valorArabico">
             </div>
-            <div>Valor em Número Romano: <?= $romano ?></div>
+            <div>Valor em Número Romano: {{ $romano }}</div>
         </div>
     </div>
 </div>
